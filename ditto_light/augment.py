@@ -40,7 +40,8 @@ class Augmenter(object):
             if pos1 < 0:
                 return tokens, labels
             new_tokens = tokens[:pos1] + tokens[pos2+1:]
-            new_labels = tokens[:pos1] + labels[pos2+1:]
+            # The problem here is that when building the new_labels, tokens are used incorrectly instead of labels.
+            new_labels = labels[:pos1] + labels[pos2+1:]
         elif 'swap' in op:
             span_len = random.randint(2, 4)
             pos1, pos2 = self.sample_span(tokens, labels, span_len=span_len)
